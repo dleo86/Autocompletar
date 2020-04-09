@@ -1,0 +1,94 @@
+<html lang="ES">
+<title>Autocompletar</title>
+<body>
+<center>
+ 
+<script language="JavaScript">
+  function LlenarTxt(v){
+    document.querySelector('#txtnombre').value = v;
+    rdiv.innerHTML = "";
+  }
+  function CambiarSelector(txt){
+    txt = txt.toLowerCase();
+    var resultado = 0;
+    rdiv.innerHTML = "";
+    if(txt != "") {
+       var nuevaLista = "<table cellpadding=2 cellspacing=0 style='border:1px solid #000000' bgcolor='#ffffff' width=100%>";
+       for(i=0; i < inpName.length; i++) {
+         var strpart = inpName.options[i].value.substr(0, txt.length);
+         strpart = strpart.toLowerCase();
+         if (strpart == txt){
+           resultado = resultado + 1;
+           var cellColor = " onmouseover=\"this.style.background='#eeeeee'\" onmouseout=\"this.style.background='#ffffff'\"";
+           var cellClick = " onclick=\"LlenarTxt('" + inpName.options[i].value + "')\"";
+           nuevaLista += "<tr><td" + cellColor + cellClick + " style='cursor:pointer'>" + inpName.options[i].value + "</td></tr>";
+         }
+       }
+       nuevaLista += "</table>";
+       if(resultado == 0){
+         document.querySelector('#txtnombre').style.background = "#ffaaaa";
+       }
+       else{
+         document.querySelector('#txtnombre').style.background = "#ffffff";
+         rdiv.innerHTML = nuevaLista;
+       }
+    }
+  }
+</script>
+ 
+<br><br><br><br>Comenzar tipeando una provincia Argentina<br>
+Puedes usar el mouse para seleccionar una provincia.<br><br>
+<input type="text" id="txtnombre" onkeyup="CambiarSelector(this.value)"><br>
+ 
+<div id="divresultados" style="position:absolute"></div>
+ 
+<select id="ultnombre" style="display:none">
+<option value="">Elegir Provincia...</option>
+<option value="Buenos Aires">Buenos Aires</option>
+<option value="Catamarca">Catamarca</option>
+<option value="Chaco">Chaco</option>
+<option value="Chubut">Chubut</option>
+<option value="Cordoba">Córdoba</option>
+<option value="Corrientes">Corrientes</option>
+<option value="Entre Rios">Entre Ríos</option>
+<option value="Formosa">Formosa</option>
+<option value="Jujuy">Jujuy</option>
+<option value="La Pampa">La Pampa</option>
+<option value="La Rioja">La Rioja</option>
+<option value="Mendoza">Mendoza</option>
+<option value="Misiones">Misiones</option>
+<option value="Neuquen">Neuquén</option>
+<option value="Rio Negro">Río Negro</option>
+<option value="Salta">Salta</option>
+<option value="San Juan">San Juan</option>
+<option value="San Luis">San Luis</option>
+<option value="Santa Cruz">Santa Cruz</option>
+<option value="Santa Fe">Santa Fe</option>
+<option value="Santiago del Estero">Santiago del Estero</option>
+<option value="Tierra del Fuego">Tierra del Fuego</option>
+<option value="Tucuman">Tucumán</option>
+
+</select>
+ 
+<script language="JavaScript">
+  var inpName = document.querySelector('#ultnombre');
+  var rdiv = document.querySelector('#divresultados');
+  obj = document.querySelector('#txtnombre');
+  if(obj.offsetParent){
+    x = obj.offsetLeft;
+    y = obj.offsetTop;
+    h = obj.offsetHeight;
+    w = obj.offsetWidth;
+    while(obj = obj.offsetParent){
+      x += obj.offsetLeft;
+      y += obj.offsetTop;
+    }
+  }
+  document.querySelector('#divresultados').style.left = x;
+  document.querySelector('#divresultados').style.top = y + h;
+  document.querySelector('#divresultados').style.width = w;
+</script>
+ 
+</center>
+</body>
+</html>
